@@ -1,0 +1,196 @@
+ <!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/table_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:01 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>分类列表</title>
+    <meta name="keywords" content="视频列表">
+    <meta name="description" content="视频列表">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="{$Think.G_WEB_PUBLIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+	<link href="{$Think.G_WEB_PUBLIC}/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+</head>
+<style>
+.search{
+	padding:10px;
+}
+.table-striped tr{
+	background-color:#fff !important;
+}
+.table-striped tr:hover{
+	background-color:#f3f3f4 !important;
+}
+.page{
+	text-align:center;
+}
+</style>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>分类列表</h5>
+                        <div class="ibox-tools">
+							<a class="refresh-link" href="javascript:location.reload()">
+                                <i class="fa fa-refresh"></i>
+                            </a>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- 搜索 -->
+                    <div class='search'>
+                    	<form id="searchForm" method="POST">
+							<label>类型:</label>
+							<select name='searchType'>
+								<option value='1'>小说分类</option>
+								<option value='2'>小说类型</option>
+								<option value='3'>书籍分组</option>
+								<option value='4'>全网分类</option>
+							</select>
+                        </form>
+                    </div>
+                    <div class="ibox-content">
+                    	<div class="row">
+							<a href='{:U("System/editMenu")}'>
+								<button class="btn btn-sm btn-primary m-r adds" style="float: right;" type="button">
+									<i class="fa fa-plus"></i> 
+									添加分类
+								</button>
+							</a>
+						</div>
+                        <div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>名称</th>
+										<th>上级</th>
+										<th>图片</th>
+										<th>颜色</th>
+										<th>类型</th>
+										<th>说明</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody id='list'>
+								</tbody>
+							</table>
+							<div class="col-sm-6" style='width:75%'>
+								<div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+									{$pages}
+								</div>
+							</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class='page'>
+    	<span id='y' style='display:none'>1</span>
+    	<button class='top' style='display:none'>上一页</button> 当前页：<span id='pnum'>1</span> <button class='next'>下一页</button>
+    </p>
+	<script src="{$Think.G_WEB_PUBLIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/plugins/iCheck/icheck.min.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/plugins/layer/laydate/laydate.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/layer/layer.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/layer/extend/layer.ext.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/plugins/toastr/toastr.min.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/toastr.options.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/gdswww.js"></script>
+	<!-- <script src="{$Think.G_WEB_PUBLIC}/js/AdminList.js"></script> -->
+</body>
+</html>
+<script>
+	var p=null,xmlHttp=null;
+	getMenu();
+	//下一页
+	$('.next').click(function (){
+		p=$('#y').text();
+		$('#y,#pnum').text(++p);
+		if($('#y').text()>1){
+			$('.top').show();
+		}else{
+			$('.top').hide();
+		}
+		getMenu();
+	})
+	//上一页
+	$('.top').click(function (){
+		p=$('#y').text();
+		$('#y,#pnum').text(--p);
+		if($('#y').text()<=1){
+			$('.top').hide();
+		}
+		$('.next').show();
+		getMenu();
+	})
+	$('#searchForm').change(function (){
+		$('#y,#pnum').text('1');
+		getMenu();
+	})
+	function getMenu(){
+		if (window.XMLHttpRequest){
+			xmlHttp=new XMLHttpRequest();
+		}else if (window.ActiveXObject){
+			xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlHttp.open('post','{:U("System/getMenu")}',true);
+		xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
+		xmlHttp.send($('#searchForm').serialize()+'&page='+$('#y').text());
+		xmlHttp.onload=function (){
+			var data=JSON.parse(xmlHttp.responseText);
+			if(xmlHttp.readyState==4 && xmlHttp.status=='200'){
+				if(data.result==1){
+					var html='';
+					for(var k in data.data){
+						html+='<tr>';
+							html+='<td>'+data['data'][k]['id']+'</td>';
+							html+='<td>'+data['data'][k]['name']+'</td>';
+							html+='<td>'+data['data'][k]['pid']+'</td>';
+							html+='<td><img src="'+data['data'][k]['menu_img']+'" style="width:15%"></td>';
+							html+='<td><span style="padding:3% 8%;background-color:'+data['data'][k]['menu_color']+'"></span></td>';
+							html+='<td>'+data['data'][k]['type']+'</td>';
+							html+='<td>'+data['data'][k]['remarks']+'</td>';
+							html+='<td>';
+								html+='<button class="btn btn-success btn-sm" type="button" onclick="edit('+data['data'][k]['id']+')">';
+									html+='<i class="fa fa-edit"></i> ';
+									html+='<span class="bold">编辑</span>';
+								html+='</button>';
+							html+='</td>';
+						html+='</tr>';
+					}
+					$('#list').html(html);
+				}else{
+					p=$('#y').text();
+					$('#y,#pnum').text(--p);
+					$('.next').hide();
+					if($('#y').text()<=1){
+						$('.top').hide();
+					}
+				}
+			}
+		}
+	}
+	//编辑
+	function edit(num){
+		if(num==0 || num==undefined || num==''){
+			layer.msg('参数缺失');return;
+		}
+		window.location.href='{:U("System/editMenu")}&num='+num;
+	}
+</script>

@@ -1,0 +1,141 @@
+ <!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/table_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:01 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>猫头鹰后台 - 管理员角色列表</title>
+    <meta name="keywords" content="猫头鹰后台">
+    <meta name="description" content="猫头鹰后台">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="{$Think.G_WEB_PUBLIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+	<link href="{$Think.G_WEB_PUBLIC}/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+</head>
+<style>
+.fullReduction .control-label {
+  padding-top: 9px;
+  margin-bottom: 0;
+  text-align: right;
+  float: left;
+  width: 105px;
+}
+</style>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>权限列表</h5>
+                        <div class="ibox-tools">
+							<a class="refresh-link" href="javascript:location.reload()">
+                                <i class="fa fa-refresh"></i>
+                            </a>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+						<div class="row">
+							<a><button class="btn btn-sm btn-primary m-r adds" style="float: right;" type="button">
+								<i class="fa fa-plus"></i> 
+							添加权限</button></a>
+						</div>
+                        <div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>权限名</th>
+										<th>添加时间</th>
+										<th>修改时间</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="RoleList" item="val">
+										<tr>
+											<td>{$val.id}</td>
+											<td>{$val.adname}</td>
+											<td>{:date("Y-m-d H:i",$val[addtime])}</td>
+											<td>{:date("Y-m-d H:i",$val[edit_time])}</td>
+											<td class="operation">
+												<if condition="$val.id neq 1">
+													<button class="btn btn-success btn-sm" type="button" val="{$val.id}">
+														<i class="fa fa-edit"></i>
+														<span class="bold">修改</span>
+													</button>
+													<button class="btn btn-white btn-sm" type="button" val="{$val.id}">
+														<i class="fa fa-trash-o"></i>
+														<span class="bold">删除</span>
+													</button>
+												</if>
+											</td>
+										</tr>
+									</foreach>
+								</tbody>
+							</table>
+							<div class="col-sm-6">
+								<div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+									{$pages}
+								</div>
+							</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="{$Think.G_WEB_PUBLIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/plugins/iCheck/icheck.min.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/plugins/layer/laydate/laydate.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/layer/layer.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/layer/extend/layer.ext.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/plugins/toastr/toastr.min.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/toastr.options.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/gdswww.js"></script>
+</body>
+</html>
+<script>
+$(".operation .btn-white").click(function() {
+	var id = $(this).attr("val");
+	layer.confirm("是否删除权限,改权限下的管理员也将被删除?", {
+		btn: ["确定", "取消"]
+	}, function() {
+		location.href = WEBPATH+"Admin/DelRole?id=" + id
+	})
+});
+$(".operation .btn-success").click(function(){
+	var id = $(this).attr("val");
+	layer.open({
+	  type: 2,
+	  title: '修改权限',
+	  shadeClose: true,
+	  shade: 0.8,
+	  area: ['100%', '100%'],		  
+	  content: WEBPATH+"Admin/EditRole?id=" + id
+	});
+})
+$(".adds").click(function(){
+	layer.open({
+	  type: 2,
+	  title: '添加权限',
+	  shadeClose: true,
+	  shade: 0.8,
+	  area: ['100%', '100%'],		  
+	  content: WEBPATH+"Admin/AddRole"
+	});
+})
+</script>

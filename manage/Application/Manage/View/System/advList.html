@@ -1,0 +1,186 @@
+ <!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/table_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:01 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>广告列表</title>
+    <meta name="keywords" content="视频列表">
+    <meta name="description" content="视频列表">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="{$Think.G_WEB_PUBLIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+	<link href="{$Think.G_WEB_PUBLIC}/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+</head>
+<style>
+.fullReduction .control-label {
+  padding-top: 9px;
+  margin-bottom: 0;
+  text-align: right;
+  float: left;
+  width: 105px;
+}
+.first,.prev,.num,.next,.end,.current{
+	padding:5px;
+	background:#f8f8f8;
+	margin-left:5px;
+}
+.search{
+	padding:10px;
+}
+.table-striped tr{
+	background-color:#fff !important;
+}
+.table-striped tr:hover{
+	background-color:#f3f3f4 !important;
+}
+</style>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>广告列表</h5>
+                        <div class="ibox-tools">
+							<a class="refresh-link" href="javascript:location.reload()">
+                                <i class="fa fa-refresh"></i>
+                            </a>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                    	<div class="row">
+							<a href='{:U("System/editAdv")}'>
+								<button class="btn btn-sm btn-primary m-r adds" style="float: right;" type="button">
+									<i class="fa fa-plus"></i> 
+									添加广告
+								</button>
+							</a>
+						</div>
+                        <div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>广告图片</th>
+										<th>跳转地址</th>
+										<th>添加时间</th>
+										<th>地址类型</th>
+										<th>位置</th>
+										<th>状态</th>
+										<th>显示设备</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="data" item="val">
+										<tr>
+											<td>{$val.id}</td>
+											<td><img src='{$val.img}' style='width:15%'/></td>
+											<td><a href='{$val.url}' target='_blank'>{$val.url}</a></td>
+											<td>{$val.time}</td>
+											<td>{$val.type}</td>
+											<td>{$val.position}</td>
+											<td>{$val.status}</td>
+											<td>{$val.equipment}</td>
+											<td class="operation">
+												<!-- <button class="btn btn-success btn-sm" type="button"  val="{$val.id}">
+													<i class="fa fa-edit"></i>
+													<span class="bold">修改</span>
+												</button>
+												<if condition="$val.id neq 1">
+													<button class="btn btn-white btn-sm" type="button" val="{$val.id}">
+														<i class="fa fa-trash-o"></i>
+														<span class="bold">删除</span>
+													</button>
+												</if> -->
+												<button class="btn btn-success btn-sm" type="button" onclick="edit({$val.id})">
+													<i class="fa fa-edit"></i>
+													<span class="bold">编辑</span>
+												</button>
+												<button class="btn btn-success btn-sm" type="button" onclick="del({$val.id})">
+													<i class="fa fa-edit"></i>
+													<span class="bold">删除</span>
+												</button>
+											</td>
+										</tr>
+									</foreach>
+								</tbody>
+							</table>
+							<div class="col-sm-6" style='width:75%'>
+								<div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+									{$pages}
+								</div>
+							</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<script src="{$Think.G_WEB_PUBLIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/plugins/iCheck/icheck.min.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/plugins/layer/laydate/laydate.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/layer/layer.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/layer/extend/layer.ext.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/plugins/toastr/toastr.min.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/toastr.options.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/gdswww.js"></script>
+	<!-- <script src="{$Think.G_WEB_PUBLIC}/js/AdminList.js"></script> -->
+</body>
+</html>
+<script>
+	//编辑
+	function edit(num){
+		if(num==0 || num==undefined || num==''){
+			layer.msg('参数缺失');return;
+		}
+		window.location.href='{:U("System/editAdv")}&num='+num;
+	}
+	//删除广告
+	function del(num){
+		layer.confirm('改操作不可逆，是否继续！',{btn:['继续','取消']},function(){
+			var xmlhttp=null;
+			if (window.XMLHttpRequest)
+			  {
+			  xmlhttp=new XMLHttpRequest();
+			  }
+			else if (window.ActiveXObject)
+			  {
+			  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			  }
+			xmlhttp.open('post','{:U("System/delAdv")}',true);
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.send('id='+num);
+			xmlhttp.onload=function (){
+				if(xmlhttp.readyState==4 && xmlhttp.status=='200'){
+					var d=JSON.parse(xmlhttp.responseText);
+					layer.msg(d.msg);
+					if(d.result==1){
+						document.location.reload();
+					}
+				}else{
+					layer.msg(xmlhttp.statusText);
+				}
+			}
+			xmlhttp.onerror=function (){
+				layer.msg('出现异常请重试！');
+			}
+		},function (){
+			layer.msg('已取消操作');
+		});
+		
+	}
+</script>

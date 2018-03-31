@@ -1,0 +1,197 @@
+ <!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/table_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:01 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>章节列表</title>
+    <meta name="keywords" content="视频列表">
+    <meta name="description" content="视频列表">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="{$Think.G_WEB_PUBLIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+	<link href="{$Think.G_WEB_PUBLIC}/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+</head>
+<style>
+.fullReduction .control-label {
+  padding-top: 9px;
+  margin-bottom: 0;
+  text-align: right;
+  float: left;
+  width: 105px;
+}
+.first,.prev,.num,.next,.end,.current{
+	padding:5px;
+	background:#f8f8f8;
+	margin-left:5px;
+}
+.search{
+	padding:10px;
+}
+.table-striped tr{
+	background-color:#fff !important;
+}
+.table-striped tr:hover{
+	background-color:#f3f3f4 !important;
+}
+</style>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>章节列表</h5>
+                        <div class="ibox-tools">
+							<a class="refresh-link" href="javascript:location.reload()">
+                                <i class="fa fa-refresh"></i>
+                            </a>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- 搜索 -->
+                    <!-- <div class='search'>
+                    	<form id="searchForm" method="POST">
+							<label>影片名称:</label>
+							<input type='text' name='searchName' value='{$search.searchName}'/>
+							<label>类型:</label>
+							<select name='searchType'>
+								<option value=''>影片类型</option>
+								<option value='1' <if condition='$search.searchType eq "1"'>selected='selected'</if>>视频</option>
+								<option value='2' <if condition='$search.searchType eq "2"'>selected='selected'</if>>电影</option>
+								<option value='3' <if condition='$search.searchType eq "3"'>selected='selected'</if>>综艺</option>
+								<option value='4' <if condition='$search.searchType eq "4"'>selected='selected'</if>>动漫</option>
+								<option value='5' <if condition='$search.searchType eq "5"'>selected='selected'</if>>少儿</option>
+							</select>
+							<label>完整性:</label>
+							<select name='searchWhole'>
+								<option value=''>完整性</option>
+								<option value='2' <if condition='$search.searchWhole eq "2"'>selected='selected'</if>>完整</option>
+								<option value='1' <if condition='$search.searchWhole eq "1"'>selected='selected'</if>>不完整</option>
+							</select>
+							<label>加入时间:</label>
+							<input type='date' name='searchStartData' value='{$search.searchStartData}'/> 至 <input type='date' name='searchEndData' value='{$search.searchEndData}'/>
+							<input type='hidden' name='isNull' value='0' id='setSearch'/>
+							<button type='button' id='setNull'>清空</button>
+							<button id='search'>搜索</button>
+                        </form>
+                    </div> -->
+                    <div class="ibox-content">
+                    	<div class="row">
+							<a href='{:U("Book/editChapter",array("bookId"=>$book_id))}'>
+								<button class="btn btn-sm btn-primary m-r adds" style="float: right;" type="button">
+									<i class="fa fa-plus"></i> 
+									添加书籍
+								</button>
+							</a>
+						</div>
+                        <div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>章节</th>
+										<th>章节名称</th>
+										<th>添加时间</th>
+										<th>类型</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="data" item="val">
+										<tr id='{$val.id}'>
+											<td>{$val.id}</td>
+											<td>{$val.title}</td>
+											<td>{$val.name}</td>
+											<td>{$val.time}</td>
+											<td>{$val.type}</td>
+											<td class="operation">
+												<!-- <button class="btn btn-success btn-sm" type="button"  val="{$val.id}">
+													<i class="fa fa-edit"></i>
+													<span class="bold">修改</span>
+												</button>
+												<if condition="$val.id neq 1">
+													<button class="btn btn-white btn-sm" type="button" val="{$val.id}">
+														<i class="fa fa-trash-o"></i>
+														<span class="bold">删除</span>
+													</button>
+												</if> -->
+												<button class="btn btn-success btn-sm" type="button" onclick="edit({$val.id})">
+													<i class="fa fa-edit"></i>
+													<span class="bold">编辑</span>
+												</button>
+												<button class="btn btn-success btn-sm" type="button" onclick="deleteC({$val.id})">
+													<i class="fa fa-edit"></i>
+													<span class="bold">删除</span>
+												</button>
+											</td>
+										</tr>
+									</foreach>
+								</tbody>
+							</table>
+							<div class="col-sm-6" style='width:75%'>
+								<div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+									{$pages}
+								</div>
+							</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+	<script src="{$Think.G_WEB_PUBLIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/plugins/iCheck/icheck.min.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/plugins/layer/laydate/laydate.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/layer/layer.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/layer/extend/layer.ext.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/plugins/toastr/toastr.min.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/toastr.options.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/gdswww.js"></script>
+	<!-- <script src="{$Think.G_WEB_PUBLIC}/js/AdminList.js"></script> -->
+</body>
+</html>
+<script>
+	//编辑
+	function edit(num){
+		if(num==0 || num==undefined || num==''){
+			layer.msg('参数缺失');return;
+		}
+		window.location.href='{:U("Book/editChapter")}&num='+num;
+	}
+	//删除章节
+	function deleteC(num){
+		var xmlhttp=null;
+		if (window.XMLHttpRequest){
+		  	xmlhttp=new XMLHttpRequest();
+		}else if (window.ActiveXObject){
+		  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.open('post','{:U("Book/delete")}',true);
+		xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;");
+		xmlhttp.send('id='+num+'&isBook=0');
+		xmlhttp.onreadystatechange=function (){
+			if(xmlhttp.readyState==4 && xmlhttp.status==200){
+				var data=JSON.parse(xmlhttp.responseText);
+				if(data.result==1){
+					layer.msg('删除成功');
+					$('#'+num).remove();
+				}else{
+					layer.msg('删除失败');
+				}
+			}
+		}
+	}
+</script>

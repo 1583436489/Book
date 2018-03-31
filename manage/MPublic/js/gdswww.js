@@ -1,0 +1,1 @@
+var WEBPATH = "http://127.0.0.1/book/manage/manage.php/";

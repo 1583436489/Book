@@ -1,0 +1,184 @@
+ <!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/table_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:01 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>vip充值卡</title>
+    <meta name="keywords" content="视频列表">
+    <meta name="description" content="视频列表">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="{$Think.G_WEB_PUBLIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+	<link href="{$Think.G_WEB_PUBLIC}/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+</head>
+<style>
+.fullReduction .control-label {
+  padding-top: 9px;
+  margin-bottom: 0;
+  text-align: right;
+  float: left;
+  width: 105px;
+}
+.first,.prev,.num,.next,.end,.current{
+	padding:5px;
+	background:#f8f8f8;
+	margin-left:5px;
+}
+.search{
+	padding:10px;
+}
+.table-striped tr{
+	background-color:#fff !important;
+}
+.table-striped tr:hover{
+	background-color:#f3f3f4 !important;
+}
+</style>
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>VIP充值卡列表</h5>
+                        <div class="ibox-tools">
+							<a class="refresh-link" href="javascript:location.reload()">
+                                <i class="fa fa-refresh"></i>
+                            </a>
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- 搜索 -->
+                    <div class='search'>
+                    	<form method="POST">
+							<label>卡券ID:</label>
+							<input type='text' name='id' value='{$where.id}'/>
+							<label>生成时间:</label>
+							<input type='text' name='strtime' id='strtime' value='{$where.strtime}'/> - <input type='text' name='endtime' id='endtime' value='{$where.endtime}'/>
+							<label>状态:</label>
+							<select name='status'>
+								<option value=''>全部</option>
+								<option value='1' <if condition='$where.status eq 1'> selected='selected'</if>>正常</option>
+								<option value='2' <if condition='$where.status eq 2'> selected='selected'</if>>已删除</option>
+							</select>
+							<button>搜索</button>
+                        </form>
+                    </div>
+                    <div class="ibox-content">
+                    	<div class="row">
+							<a href='{:U("Coupons/addCoupons")}'>
+								<button class="btn btn-sm btn-primary m-r adds" style="float: right;" type="button">
+									<i class="fa fa-plus"></i>
+									添加卡券
+								</button>
+							</a>
+							<button class="btn-white btn-sm del" style="float: right;" type="button">
+								<i class="fa fa-trash-o"></i>
+								删除卡券
+							</button>
+						</div>
+                        <div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>面值</th>
+										<th>生成时间</th>
+										<th>过期时间</th>
+										<th>管理员id</th>
+										<th>备注</th>
+										<th>状态</th>
+										<th>活动标题</th>
+										<th>活动内容</th>
+										<th>可领数量</th>
+										<th>已领数量</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="data" item="val">
+										<tr id='{$val.id}'>
+											<td>{$val.id}</td>
+											<td>{$val.num}{$val.type}</td>
+											<td>{$val.time}</td>
+											<td>{$val.end_time}</td>
+											<td>{$val.admin_id}</td>
+											<td>{$val.msg}</td>
+											<td>{$val.status}</td>
+											<td>{$val.title}</td>
+											<td>{$val.content}</td>
+											<td>{$val.num1}</td>
+											<td>{$val.get_num}</td>
+										</tr>
+									</foreach>
+								</tbody>
+							</table>
+							<div class="col-sm-6" style='width:75%'>
+								<div class="dataTables_paginate paging_simple_numbers" id="editable_paginate">
+									{$pages}
+								</div>
+							</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+	<script src="{$Think.G_WEB_PUBLIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/plugins/iCheck/icheck.min.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/plugins/layer/laydate/laydate.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/layer/layer.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/layer/extend/layer.ext.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/plugins/toastr/toastr.min.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/toastr.options.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/gdswww.js"></script>
+	<!-- <script src="{$Think.G_WEB_PUBLIC}/js/AdminList.js"></script> -->
+	<script src="{$Think.G_WEB_PUBLIC}/laydate/laydate.js"></script>
+</body>
+</html>
+<script>
+	$('.del').click(function (){
+		layer.open({
+			type: 1,
+			skin: 'layui-layer-rim', //加上边框
+			area: ['30%', '40%'], //宽高
+			content: '<textarea style="width:100%;height:83%;" id="vipNum"></textarea><div style="text-align:center"><button style="width:30%;padding:7px" onclick="del()">删除</button></div>',
+			title:'请在下面输入激活。一行一个'
+		})
+	})
+	function del(){
+		var vipNum=$('#vipNum').val().replace(/\n/g,",");
+		if(vipNum){
+			$.post('{:U("Coupons/delCoupons")}',{'num':vipNum},function (d){
+				if(d.result==1){
+					$('.layui-layer-close').click();
+					layer.msg('删除成功', function (){
+						location.reload();
+					});
+				}else{
+					layer.msg('删除失败');
+				}
+			})
+		}
+	}
+	laydate.render({
+		elem: '#strtime'
+		,type: 'datetime'
+	});
+	laydate.render({
+		elem: '#endtime'
+		,type: 'datetime'
+	});
+</script>

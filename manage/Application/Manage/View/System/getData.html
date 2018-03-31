@@ -1,0 +1,117 @@
+ <!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/table_basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:20:01 GMT -->
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>采集数据</title>
+    <meta name="keywords" content="采集数据">
+    <meta name="description" content="采集数据">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="{$Think.G_WEB_PUBLIC}/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/style.min862f.css?v=4.1.0" rel="stylesheet">
+	<link href="{$Think.G_WEB_PUBLIC}/css/plugins/toastr/toastr.min.css" rel="stylesheet">
+</head>
+<style>
+
+</style>
+<body class="gray-bg">
+    <div style='margin:20px auto;width:50%'>
+	    <select class='address' style='padding:8px;font-size:15px;width:60%'>
+	    	<option value='GetData'>中文书城</option>
+	    </select>
+	    <div class='mode'>
+	    	<p style='font-size:15px;margin:10px auto'>采集模块：</p>
+	    	<input type="checkbox" name="num" value="-1"/>轮播图<br/>
+			<input type="checkbox" name="num" value="-2"/>首页数据<br/>
+	    	<input type="checkbox" name="num" value="0" checked="checked"/>书城-精选：热门推荐<br/>
+	    	<input type="checkbox" name="num" value="1" checked="checked"/>书城-精选：本周主打<br/>
+	    	<input type="checkbox" name="num" value="2" checked="checked"/>书城-精选：完本畅读<br/>
+	    	<input type="checkbox" name="num" value="3" checked="checked"/>书城-精选：名家经典<br/>
+	    	<input type="checkbox" name="num" value="4" checked="checked"/>书城-精选：新书入库<br/>
+	    	<input type="checkbox" name="num" value="5" checked="checked"/>书城-精选：发现好书<br/>
+	    	<input type="checkbox" name="num" value="6" checked="checked"/>书城-男生：热门推荐<br/>
+	    	<input type="checkbox" name="num" value="7" checked="checked"/>书城-男生：本周主打<br/>
+	    	<input type="checkbox" name="num" value="8" checked="checked"/>书城-男生：东方玄幻<br/>
+	    	<input type="checkbox" name="num" value="9" checked="checked"/>书城-男生：都市小说<br/>
+	    	<input type="checkbox" name="num" value="10" checked="checked"/>书城-男生：西方奇幻<br/>
+	    	<input type="checkbox" name="num" value="11" checked="checked"/>书城-男生：武侠仙侠<br/>
+	    	<input type="checkbox" name="num" value="12" checked="checked"/>书城-男生：架空历史<br/>
+	    	<input type="checkbox" name="num" value="13" checked="checked"/>书城-男生：科幻未来<br/>
+	    	<input type="checkbox" name="num" value="14" checked="checked"/>书城-男生：网游竞技<br/>
+	    	<input type="checkbox" name="num" value="15" checked="checked"/>书城-男生：悬疑惊悚<br/>
+	    	<input type="checkbox" name="num" value="16" checked="checked"/>书城-女生：热门推荐<br/>
+	    	<input type="checkbox" name="num" value="17" checked="checked"/>书城-女生：本周主打<br/>
+	    	<input type="checkbox" name="num" value="18" checked="checked"/>书城-女生：古代言情<br/>
+	    	<input type="checkbox" name="num" value="19" checked="checked"/>书城-女生：幻想言情<br/>
+	    	<input type="checkbox" name="num" value="20" checked="checked"/>书城-女生：都市言情<br/>
+	    	<input type="checkbox" name="num" value="21" checked="checked"/>书城-女生：总裁豪门<br/>
+	    	<input type="checkbox" name="num" value="22" checked="checked"/>书城-女生：青青校园<br/>
+	    	<input type="checkbox" name="num" value="23" checked="checked"/>书城-女生：唯美同人<br/>
+	    	<input type="checkbox" name="num" value="24" checked="checked"/>书城-出版：热门推荐<br/>
+	    	<input type="checkbox" name="num" value="25" checked="checked"/>书城-出版：本周主打<br/>
+	    	<input type="checkbox" name="num" value="26" checked="checked"/>书城-出版：文学小说<br/>
+	    	<input type="checkbox" name="num" value="27" checked="checked"/>书城-出版：经典名著<br/>
+	    	<input type="checkbox" name="num" value="28" checked="checked"/>书城-出版：经管励志<br/>
+	    	<input type="checkbox" name="num" value="29" checked="checked"/>书城-出版：生活休闲<br/>
+	    	<input type="checkbox" name="num" value="30" checked="checked"/>书城-出版：婚姻家庭<br/>
+	    	<input type="checkbox" name="num" value="31" checked="checked"/>书城-出版：科普教育<br/>
+	    	<input type="checkbox" name="num" value="32" checked="checked"/>书城-出版：经实传记<br/>
+	    	<input type="checkbox" name="num" value="33" checked="checked"/>书城-出版：亲子育儿<br/>
+	    	<input type="checkbox" name="num" value="34" checked="checked"/>书城-出版：工具/百科<br/>
+	    </div>
+	    <button style='width:20%;padding:6px' onclick='getData()'>采集</button>
+    </div>
+	<script src="{$Think.G_WEB_PUBLIC}/js/jquery.min.js?v=2.1.4"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/bootstrap.min.js?v=3.3.6"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/content.min.js?v=1.0.0"></script>
+    <script src="{$Think.G_WEB_PUBLIC}/js/plugins/iCheck/icheck.min.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/plugins/layer/laydate/laydate.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/layer/layer.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/layer/extend/layer.ext.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/plugins/toastr/toastr.min.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/toastr.options.js"></script>
+	<script src="{$Think.G_WEB_PUBLIC}/js/gdswww.js"></script>
+	<!-- <script src="{$Think.G_WEB_PUBLIC}/js/AdminList.js"></script> -->
+</body>
+<script>
+	function getData(){
+		var c=$('.address').val();
+		var num=[];
+		$('.mode input[name=num]').each(function (k,v){
+			if(v.checked){
+				num.push($(v).val());
+			}
+		})
+		var index = layer.load(1, {
+			  shade: [0.3,'#000'] //0.1透明度的白色背景
+			});
+		var xmlhttp;
+		if (window.XMLHttpRequest)
+		{
+			xmlhttp=new XMLHttpRequest();
+		}
+		else
+		{
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.open("POST","http://127.0.0.1/book/index.php?m=Cread&c="+c,true);
+		xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xmlhttp.send('num='+num);
+		xmlhttp.onreadystatechange=function (){
+			if (xmlhttp.readyState==4){
+				layer.close(index);
+				layer.msg('采集完成');
+			}
+		}
+	}
+</script>
+</html>

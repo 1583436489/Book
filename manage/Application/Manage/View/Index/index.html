@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <title>后台 - 登录</title>
+    <meta name="keywords" content="后台">
+    <meta name="description" content="后台">
+    <link href="{$Think.G_WEB_PUBLIC}/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/animate.min.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/style.min.css" rel="stylesheet">
+    <link href="{$Think.G_WEB_PUBLIC}/css/login.min.css" rel="stylesheet">
+	<link href="{$Think.G_WEB_PUBLIC}/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+    <meta http-equiv="refresh" content="0;ie.html" />
+    <![endif]-->
+    <script>
+        if(window.top!==window.self){window.top.location=window.location};
+    </script>
+
+</head>
+<style>
+.col-sm-5 i.reloadverify{
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  margin-top: 9px;
+  right: 58px;
+  cursor: pointer;
+}
+.col-sm-5 img {
+  margin: 0 auto;
+  width: 233px;
+  height: 50px;
+  margin-bottom: 15px;
+}
+span.help-block{
+	display:none!important;
+}
+.layui-layer .layui-layer-content{
+	color: #5A5A5A;
+}
+@media screen and (max-width: 768px){
+	.col-sm-5 img {
+	  width: 318px!important;
+	  height: 69px!important;
+	}
+	.col-sm-5 i {
+	  right: 62px!important;
+	}
+}
+.btn-default.active{
+	background-color: #00B9FC;
+}
+</style>
+<body class="signin" style="background: rgb(236, 236, 236);">
+    <div class="signinpanel">
+        <div class="row">
+            <div class="col-sm-3">
+				
+            </div>
+            <div class="col-sm-5">
+                <form method="post" action="{:U('index/login')}" id="signupForm" class=" m-t">
+               <!--  {__TOKEN__} -->
+                    <h4 class="no-margins" style="  color: rgb(102, 100, 100);">登录：</h4>
+                    <p class="m-t-md" style="  color: rgb(102, 100, 100);">登录到后台</p>
+					
+					<div class="form-group">
+						<input type="text" class="form-control uname" placeholder="账号" name="username" aria-required="true"/>
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control pword m-b" placeholder="密码" name="password"  aria-required="true"/>
+						<i class="reloadverify"></i>
+					</div>
+					<div class="form-group">
+						<input type="text" id="verify" name="verify" class="form-control reload m-b" placeholder="验证码" aria-required="true" required="验证码"/>
+					</div>
+					
+					<img class="verifyimg reloadverify m-b" alt="点击切换" src="{:U('Index/verify')}"/>
+                    <button class="btn btn-primary btn-block">登录</button>
+                </form>
+            </div>
+        </div>
+        <div class="signup-footer">
+            <div class="pull-left" style="width: 94%;text-align: center;color: rgb(102, 100, 100);">
+                &copy; 2016 All Rights Reserved. 后台
+            </div>
+        </div>
+    </div>
+</body>
+<script src="{$Think.G_WEB_PUBLIC}/js/jquery.min.js?v=2.1.4"></script>
+<script src="{$Think.G_WEB_PUBLIC}/js/bootstrap.min.js?v=3.3.6"></script>
+<script src="{$Think.G_WEB_PUBLIC}/js/plugins/iCheck/icheck.min.js"></script>
+<script src="{$Think.G_WEB_PUBLIC}/js/plugins/validate/jquery.validate.min.js"></script>
+<script src="{$Think.G_WEB_PUBLIC}/js/plugins/validate/messages_zh.min.js"></script>
+<script src="{$Think.G_WEB_PUBLIC}/js/demo/form-validate-demo.min.js"></script>
+<script src="{$Think.G_WEB_PUBLIC}/layer/layer.js"></script>
+<script src="{$Think.G_WEB_PUBLIC}/layer/extend/layer.ext.js"></script>
+<script src="{$Think.G_WEB_PUBLIC}/js/gdswww.js"></script>
+<script src="{$Think.G_WEB_PUBLIC}/js/index.js"></script>
+</html>
+
